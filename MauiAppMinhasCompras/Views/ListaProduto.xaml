@@ -2,11 +2,57 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppMinhasCompras.Views.ListaProduto"
-             Title="ListaProduto">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             Title="Minhas Compras">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Somar" Clicked="ToolbarItem_Clicked_Somar" />
+        <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked_Adicionar" />
+    </ContentPage.ToolbarItems>
+
+    <VerticalStackLayout Padding="10" Spacing="10">
+
+        <SearchBar x:Name="txt_search" 
+                   Placeholder="Busca de Produtos" 
+                   TextChanged="txt_search_TextChanged" />
+
+        <Grid ColumnDefinitions="*, Auto, Auto, Auto" Padding="5">
+            <Label Grid.Column="0" Text="Produto" FontAttributes="Bold" />
+            <Label Grid.Column="1" Text="Qnt" FontAttributes="Bold" WidthRequest="50" HorizontalTextAlignment="Center" />
+            <Label Grid.Column="2" Text="Preço" FontAttributes="Bold" WidthRequest="70" HorizontalTextAlignment="End" />
+            <Label Grid.Column="3" Text="Total" FontAttributes="Bold" WidthRequest="80" HorizontalTextAlignment="End" />
+        </Grid>
+
+      
+        <RefreshView x:Name="ref_carregando" Refreshing="ref_carregando_Refreshing">
+            <CollectionView x:Name="lst_produtos">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Excluir" 
+                                               BackgroundColor="Red" 
+                                               Invoked="SwipeItem_Invoked_Excluir" 
+                                               CommandParameter="{Binding .}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Grid ColumnDefinitions="*, Auto, Auto, Auto" Padding="5">
+                                <Grid.GestureRecognizers>
+                          <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_Editar"
+                                             CommandParameter="{Binding .}" />
+                          </Grid.GestureRecognizers>
+
+                        <Label Grid.Column="0" Text="{Binding Descricao}" VerticalOptions="Center" />
+                        <Label Grid.Column="1" Text="{Binding Quantidade}" WidthRequest="50" HorizontalTextAlignment="Center" VerticalOptions="Center" />
+                        <Label Grid.Column="2" Text="{Binding Preco, StringFormat='{0:C}'}" WidthRequest="70" HorizontalTextAlignment="End" VerticalOptions="Center" />
+                        <Label Grid.Column="3" Text="{Binding Total, StringFormat='{0:C}'}" WidthRequest="80" HorizontalTextAlignment="End" VerticalOptions="Center" />
+                            </Grid>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
     </VerticalStackLayout>
 </ContentPage>

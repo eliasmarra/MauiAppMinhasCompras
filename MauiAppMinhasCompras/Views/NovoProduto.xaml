@@ -3,10 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppMinhasCompras.Views.NovoProduto"
              Title="NovoProduto">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <Label Text="Descrição do Produto:" FontAttributes="Bold" />
+        <Entry x:Name="txt_descricao" 
+               Placeholder="Ex: Arroz, Feijão..." 
+               Text="{Binding Descricao}" />
+
+        <Label Text="Quantidade:" FontAttributes="Bold" />
+        <Entry x:Name="txt_quantidade" 
+               Placeholder="0" 
+               Keyboard="Numeric" 
+               Text="{Binding Quantidade}" />
+
+        <Label Text="Preço Unitário (R$):" FontAttributes="Bold" />
+        <Entry x:Name="txt_preco" 
+               Placeholder="0.00" 
+               Keyboard="Numeric" 
+               Text="{Binding Preco}" />
+
+        <Button Text="Salvar" 
+                Clicked="Button_Clicked_Salvar" 
+                Margin="0,20,0,0" 
+                BackgroundColor="#512BD4" 
+                TextColor="White" />
+
     </VerticalStackLayout>
+
+
 </ContentPage>

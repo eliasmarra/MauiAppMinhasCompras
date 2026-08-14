@@ -23,19 +23,20 @@ public partial class ListaProduto : ContentPage
     {
         try
         {
-            lista.Clear();
             var tmp = await App.Db.GetAll();
-            foreach (var item in tmp)
-            {
-                lista.Add(item);
-            }
+
+            lista.Clear();
+                foreach (var item in tmp)
+                {
+                    lista.Add(item);
+                }
+           
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Ops", ex.Message, "OK");
+            await DisplayAlertAsync("Ops", ex.Message, "OK");
         }
     }
-
     private async void txt_search_TextChanged(object sender, TextChangedEventArgs e)
     {
         try
@@ -50,15 +51,25 @@ public partial class ListaProduto : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Ops", ex.Message, "OK");
+            await DisplayAlertAsync("Ops", ex.Message, "OK");
         }
     }
 
+     
+    private async void ToolbarItem_Clicked_Refresh(object sender, EventArgs e)
+    {
+        await AtualizarLista();
+    }
+
+    private async void Button_Clicked_Refresh(object sender, EventArgs e)
+    {
+        await AtualizarLista();
+    }
     private async void ToolbarItem_Clicked_Somar(object sender, EventArgs e)
     {
         double total = lista.Sum(i => i.Total);
         string msg = $"O total dos produtos é {total:C}";
-        await DisplayAlert("Somatório", msg, "OK");
+        await DisplayAlertAsync("Somatório", msg, "OK");
     }
 
     private async void ToolbarItem_Clicked_Adicionar(object sender, EventArgs e)
@@ -73,7 +84,7 @@ public partial class ListaProduto : ContentPage
 
         if (item != null)
         {
-            bool confirm = await DisplayAlert("Tem certeza?", $"Remover {item.Descricao}?", "Sim", "Não");
+            bool confirm = await DisplayAlertAsync("Tem certeza?", $"Remover {item.Descricao}?", "Sim", "Não");
             if (confirm)
             {
                 await App.Db.Delete(item.Id);

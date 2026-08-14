@@ -2,6 +2,7 @@
 
 namespace MauiAppMinhasCompras.Models
 {
+    [Table("Produto")]
     public class Produto
     {
         [PrimaryKey, AutoIncrement]
@@ -9,6 +10,8 @@ namespace MauiAppMinhasCompras.Models
         public string Descricao { get; set; }
         public double Quantidade { get; set; }
         public double Preco { get; set; }
+        
+        [Ignore]
         public double Total => Quantidade * Preco;
     }
 }

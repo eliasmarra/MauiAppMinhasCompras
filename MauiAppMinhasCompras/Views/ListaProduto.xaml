@@ -4,6 +4,7 @@
              x:Class="MauiAppMinhasCompras.Views.ListaProduto"
              Title="Minhas Compras">
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Recarregar" Clicked="ToolbarItem_Clicked_Refresh" Priority="0" />
         <ToolbarItem Text="Somar" Clicked="ToolbarItem_Clicked_Somar" />
         <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked_Adicionar" />
     </ContentPage.ToolbarItems>
@@ -21,13 +22,13 @@
             <Label Grid.Column="3" Text="Total" FontAttributes="Bold" WidthRequest="80" HorizontalTextAlignment="End" />
         </Grid>
 
-      
+
         <RefreshView x:Name="ref_carregando" Refreshing="ref_carregando_Refreshing">
             <CollectionView x:Name="lst_produtos">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <SwipeView>
-                            
+
                             <SwipeView.RightItems>
                                 <SwipeItems>
                                     <SwipeItem Text="Excluir" 
@@ -39,20 +40,22 @@
 
                             <Grid ColumnDefinitions="*, Auto, Auto, Auto" Padding="5">
                                 <Grid.GestureRecognizers>
-                          <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_Editar"
-                                             CommandParameter="{Binding .}" />
-                          </Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_Editar"
+                                                           CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
 
-                        <Label Grid.Column="0" Text="{Binding Descricao}" VerticalOptions="Center" />
-                        <Label Grid.Column="1" Text="{Binding Quantidade}" WidthRequest="50" HorizontalTextAlignment="Center" VerticalOptions="Center" />
-                        <Label Grid.Column="2" Text="{Binding Preco, StringFormat='{0:C}'}" WidthRequest="70" HorizontalTextAlignment="End" VerticalOptions="Center" />
-                        <Label Grid.Column="3" Text="{Binding Total, StringFormat='{0:C}'}" WidthRequest="80" HorizontalTextAlignment="End" VerticalOptions="Center" />
+                                <Label Grid.Column="0" Text="{Binding Descricao}" VerticalOptions="Center" />
+                                <Label Grid.Column="1" Text="{Binding Quantidade}" WidthRequest="50" HorizontalTextAlignment="Center" VerticalOptions="Center" />
+                                <Label Grid.Column="2" Text="{Binding Preco, StringFormat='{0:C}'}" WidthRequest="70" HorizontalTextAlignment="End" VerticalOptions="Center" />
+                                <Label Grid.Column="3" Text="{Binding Total, StringFormat='{0:C}'}" WidthRequest="80" HorizontalTextAlignment="End" VerticalOptions="Center" />
+
                             </Grid>
                         </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
+
 
     </VerticalStackLayout>
 </ContentPage>

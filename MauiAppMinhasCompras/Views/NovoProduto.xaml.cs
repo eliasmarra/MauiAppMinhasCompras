@@ -13,7 +13,12 @@ public partial class NovoProduto : ContentPage
     {
         try
         {
-            
+            if (string.IsNullOrWhiteSpace(txt_descricao.Text))
+            {
+                await DisplayAlertAsync("Atenção", "Preencha a descrição do produto", "OK");
+                return;
+            }
+
             Produto p = BindingContext as Produto ?? new Produto();
 
             p.Descricao = txt_descricao.Text;
@@ -24,20 +29,20 @@ public partial class NovoProduto : ContentPage
             {
                
                 await App.Db.Update(p);
-                await DisplayAlert("Sucesso!", "Produto atualizado com sucesso!", "OK");
+                await DisplayAlertAsync("Sucesso!", "Produto atualizado com sucesso!", "OK");
             }
             else
             {
               
                 await App.Db.Insert(p);
-                await DisplayAlert("Sucesso!", "Produto inserido com sucesso!", "OK");
+                await DisplayAlertAsync("Sucesso!", "Produto inserido com sucesso!", "OK");
             }
 
             await Navigation.PopAsync();
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Ops", ex.Message, "OK");
+            await DisplayAlertAsync("Ops", ex.Message, "OK");
         }
     }
 

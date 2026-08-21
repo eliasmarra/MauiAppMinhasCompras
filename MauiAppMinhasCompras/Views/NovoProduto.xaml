@@ -2,13 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppMinhasCompras.Views.NovoProduto"
-             Title="NovoProduto">
+             Title="Novo Produto">
 
     <VerticalStackLayout Padding="20" Spacing="15">
 
         <Label Text="Descrição do Produto:" FontAttributes="Bold" />
         <Entry x:Name="txt_descricao" 
-               Placeholder="Ex: Arroz, Feijão..." 
+               Placeholder="Adicione um produto de sua escolha" 
                Text="{Binding Descricao}" />
 
         <Label Text="Quantidade:" FontAttributes="Bold" />

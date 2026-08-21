@@ -87,30 +87,48 @@ public partial class ListaProduto : ContentPage
             bool confirm = await DisplayAlertAsync("Tem certeza?", $"Remover {item.Descricao}?", "Sim", "Não");
             if (confirm)
             {
-                await App.Db.Delete(item.Id);
+                await App.Db.Delete(item);
                 await AtualizarLista();
             }
         }
     }
 
-    private async void TapGestureRecognizer_Tapped_Editar(object sender, EventArgs e)
+    private async void TapGestureRecognizer_Tapped_Editar(object sender, TappedEventArgs e)
     {
-        var item = (sender as TappedEventArgs)?.Parameter as Produto;
+        var grid = sender as Grid;
+        var item = grid?.BindingContext as Produto;
 
         if (item != null)
         {
-           
             await Navigation.PushAsync(new EditarProduto
             {
                 BindingContext = item
             });
         }
     }
-
     private async void ref_carregando_Refreshing(object sender, EventArgs e)
     {
         await AtualizarLista();
         ref_carregando.IsRefreshing = false;
+    }
+    private async void BtnExcluir_Clicked(object sender, EventArgs e)
+    {
+        Button botao = (Button)sender;
+
+        Produto produto = (Produto)botao.CommandParameter;
+
+        bool confirmar = await DisplayAlertAsync(
+            "Excluir produto",
+            $"Deseja excluir o produto {produto.Descricao}?",
+            "Sim",
+            "Não");
+
+        if (confirmar)
+        {
+            await App.Db.Delete(produto);
+
+            AtualizarLista();
+        }
     }
 }
 

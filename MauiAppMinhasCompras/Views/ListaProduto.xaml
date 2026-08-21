@@ -20,7 +20,7 @@
     <VerticalStackLayout Padding="10"
                          Spacing="10">
         
-        <Label Text="Minhas Compras"
+        <Label Text="Histórico de Compras"
                FontSize="28"
                FontAttributes="Bold"
                TextColor="#1565C0"
